@@ -1,0 +1,19 @@
+h1{
+	display: block;
+	text-align: center;
+	font-size: 300%;
+}
+h2{
+	text-align: center;
+	font-size: 125%;
+}
+h6{
+	font-size: 10px;
+	display: block;
+	text-align: center;
+}
+button{
+	text-align: center;
+	margin: auto;
+	display: flex;
+}
