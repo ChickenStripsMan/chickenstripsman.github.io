@@ -4,7 +4,8 @@ function Checked(){
         window.location.href = "gamesHome.html"
     }
     else if(text == "33801") {
-        window.location.href = "../InProgress/Minecraft.html"
+        alert("Loading Minceraft")
+        window.location.href = "../InProgress/BlockGame.html"
     }
     else{
         alert("Password Incorrect")
