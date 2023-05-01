@@ -8,7 +8,7 @@ function Checked(){
         window.location.href = "../InProgress/inProgressHome.html"
     }
     else{
-        alert("Password Incorrect")
+        alert("Password Not Valid")
         window.location.href = "../index.html"
     }
 }
