@@ -87,16 +87,16 @@ function update(){
 }
 
 function changeDirection(e){
-    if(e.code == "ArrowUp" || e.key === "w" && velocityY != 1){
+    if(e.code == "ArrowUp" && velocityY != 1 || e.key === "w" && velocityY != 1){
         currentDirection = 0;
     }
-    else if(e.code == "ArrowDown" || e.key === "s" && velocityY != -1){
+    else if(e.code == "ArrowDown" && velocityY != -1 || e.key === "s" && velocityY != -1){
         currentDirection = 1;
     }
-    else if(e.code == "ArrowRight" || e.key === "d" && velocityX != -1){
+    else if(e.code == "ArrowRight" && velocityX != -1 || e.key === "d" && velocityX != -1){
         currentDirection = 2;
     }
-    else if(e.code == "ArrowLeft" || e.key === "a" && velocityX != 1){
+    else if(e.code == "ArrowLeft" && velocityX != 1 || e.key === "a" && velocityX != 1){
         currentDirection = 3;
     }
 }
