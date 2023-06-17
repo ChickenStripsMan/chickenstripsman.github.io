@@ -1,0 +1,5 @@
+Notes and ideas for making the game engine and possibly how it may work:
+
+> See planning papers
+> CSS is up to the maker of the game to do (excluding basic structure and positioning of things)
+> 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="codeEditor.css">
+        <script src="codeEditor.js"></script>
+        <title>CSM</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <label><img src="./Icons/html.jpg"> HTML</label>
+                <textarea id="htmlCode" onkeyup="run()"></textarea>
+                <label><img src="./Icons/css.jpg"> CSS</label>
+                <textarea id="cssCode" onkeyup="run()"></textarea>
+                <label><img src="./Icons/js.jpg"> JS</label>
+                <textarea id="jsCode" onkeyup="run()"></textarea>
+            </div>
+            <div class="right">
+                <label><img id="outputImg" src="./Icons/output.png"> Output</label>
+                <iframe id="output"></iframe>
+            </div>
+        </div>
+    </body>
+</html>
