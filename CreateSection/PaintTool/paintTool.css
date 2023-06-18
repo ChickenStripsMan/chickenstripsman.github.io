@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h1 {
+    background: #eeb55f;
+    background: -webkit-linear-gradient(to right, #eeb55f, #d14f4f, #eeb55f);
+    background: linear-gradient(to right, #eeb55f, #d14f4f, #eeb55f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+}
+
+#toolbar {
+    box-shadow: 0px 0px 20px black;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 70px;
+    background-color: #202020;
+}
+
+#toolbar * {
+    margin-bottom: 6px;
+}
+
+#toolbar #print{
+    position: absolute;
+    width: 70px;
+    bottom: 5px;
+}
+
+#toolbar .colorField {
+    border-radius: 5px;
+    border: 1px solid black;
+    height: 25px;
+    width: 70px;
+    min-height: 25px;
+    min-width: 50px;
+    cursor: pointer;
+}
+
+#toolbar #currColorLabel{
+    font-size: 11px;
+}
+
+#toolbar #currColor {
+    border-radius: 5px;
+    background: black;
+    border: 1px solid black;
+    height: 50px;
+    width: 70px;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+#toolbar label {
+    font-size: 12px;
+}
+
+#toolbar input {
+    width: 100%;
+    cursor: pointer;
+}
+
+#toolbar button {
+    background-color: #eeb55f;
+    border: none;
+    border-radius: 4px;
+    color:white;
+    padding: 2px;
+    transition-duration: 0.3s;
+}
+
+#toolbar button:hover{
+    background: rgb(160, 0, 0);
+}

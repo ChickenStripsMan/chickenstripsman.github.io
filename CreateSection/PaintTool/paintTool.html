@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="paintTool.css">
+    <title>CSM</title>
+</head>
+<body>
+    <section class="container">
+        <div id="toolbar">
+            <h1>Draw!</h1>
+            <br>
+            <label id="currColorLabel" for="currColor">Current Color</label>
+            <div id="currColor" name="currColor"></div>
+            <br>
+            <label for="colors">Colors</label>
+            <input id="colors" name='colors' type="color">
+            <div onclick="changeColor(this)" id="preColors" class="colorField" style="background: red;"></div>
+            <div onclick="changeColor(this)" id="preColors" class="colorField" style="background: blue;"></div>
+            <div onclick="changeColor(this)" id="preColors" class="colorField" style="background: green;"></div>
+            <div onclick="changeColor(this)" id="preColors" class="colorField" style="background: yellow;"></div>
+            <div onclick="changeColor(this)" id="preColors" class="colorField" style="background: black;"></div>
+            <!--This is the eraser just make it so that when it is clicked the color changes to white-->
+            <div onclick="changeColor(this)" class="colorField" style="background: white;"></div>
+            <br>
+            <label for="lineWidth">Line Width</label>
+            <input id="lineWidth" name='lineWidth' type="range" value="5" max="26" min="1">
+            <br>
+            <button id="undo">Undo</button>
+            <button id="clear">Clear</button>
+            <button id="print">Print</button>
+        </div>
+        <div class="drawingBoard">
+            <canvas id="drawingBoard"></canvas>
+        </div>
+    </section>
+</body>
+</html>
+<script  src="paintTool.js"></script>
