@@ -11,22 +11,131 @@
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 background: white;
                 margin: 0;
+                font-size: 15px;
+                overflow: hidden;
             }
+            /*left column*/
             #left{
                 position: absolute;
-                /*the colors for the columns are temporary to show where they are*/
-                background: green;
                 height: 100%;
                 width: 17.5%;
             }
+            #map{
+                position: absolute;
+                aspect-ratio: 1/1;
+                max-width: 300px;
+                max-height: 300px;
+                width: 100%;
+                background: rgb(210, 210, 210);
+            }
+            #hotbar{
+                position: absolute;
+                width: 100%;
+                aspect-ratio: 1/1.5;
+                max-height: 300px;
+                max-width: 200px;
+                text-align: center;
+                bottom: 0;
+                background: rgb(210, 210, 210);
+            }
+            #hbarEquipment{
+                background-color: rgb(155, 155, 155);
+                width: 100%;
+                aspect-ratio: 1/0.75;
+                text-align: left;
+            }
+            #hbarEquipment p{
+                padding: 0;
+                margin: 0;
+                font-size: 13px;
+                margin-top: 3px;
+                padding-left: 5px;
+            }
+            #hbarEquipment h4{
+                font-size: 17px;
+                margin: 0;
+                padding-bottom: 3px;
+                text-align: center;
+            }
+            #inventoryButton{
+                display: flex;
+            }
+            #inventoryButton p{
+                margin: 1px;
+                padding-left: 3px;
+            }
+            #inventoryButton button{
+                background: rgb(155, 155, 155);
+                text-align: center;
+                aspect-ratio: 1.25/1;
+                border: 0;
+                transition-duration: 0.3s;
+            }
+            #inventoryButton:hover button{
+                background: rgb(210, 210, 210);
+            }
+            #questsButton{
+                display: flex;
+            }
+            #questsButton p{
+                margin: 1px;
+                padding-left: 3px;
+            }
+            #questsButton button{
+                background: rgb(155, 155, 155);
+                text-align: center;
+                aspect-ratio: 1.25/1;
+                border: 0;
+                transition-duration: 0.3s;
+            }
+            #questsButton:hover button{
+                background: rgb(210, 210, 210);
+            }
+            /*right column*/
             #right{
                 position: absolute;
-                /*the colors for the columns are temporary to show where they are*/
-                background: red;
+                background: rgb(85, 85, 85);
                 left: 82.5%;
                 height: 100%;
                 width: 17.5%;
             }
+            #settingsButton{
+                background: rgb(155, 155, 155);
+                display: flex;
+                transition-duration: 0.3s;
+            }
+            #settingsButton p{
+                margin: 1px;
+                padding-left: 3px;
+            }
+            #settingsButton button{
+                background: rgb(210, 210, 210);
+                text-align: center;
+                aspect-ratio: 1.25/1;
+                border: 0;
+            }
+            #settingsButton:hover{
+                background: rgb(210, 210, 210);
+            }
+            #saveButton{
+                background: rgb(155, 155, 155);
+                display: flex;
+                transition-duration: 0.3s;
+            }
+            #saveButton p{
+                margin: 1px;
+                padding-left: 3px;
+            }
+            #saveButton button{
+                background: rgb(210, 210, 210);
+                text-align: center;
+                aspect-ratio: 1.25/1;
+                border: 0;
+            }
+            #saveButton:hover{
+                background: rgb(210, 210, 210);
+            }
+            /*center column*/
             #center{
                 font-size: 15px;
                 margin-left: 17.5%;
@@ -92,10 +201,40 @@
         <!--HTML goes here-->
         <!--HTML will not be editable by the user-->
         <section id="left">
-            <p>this is the left column, it will contain the map and some other things, towards the bottom of the column I should display important things like health, equiped items, and etc.</p>
+            <canvas id="map"></canvas>
+            <div id="hotbar">
+                <p>Player Health = 10 ♥️</p>
+                <div id="hbarEquipment">
+                    <h4>Equiped Items:</h4>
+                    <p id="head">Head: Helmet</p>
+                    <p id="chest">Torso: Chestplate</p>
+                    <p id="legs">Legs: Leg Things</p>
+                    <p id="lHand">Left Hand: Shield</p>
+                    <p id="rHand">Right Hand: Sword</p>
+                    <p id="secondary">Secondary: Rabit's Foot</p>
+                </div>
+                <!--buttons also have to have a text input function, their functions can't only be accessed through the button, it has to be able to be accessed through text inputs like "settings" or "inventory", and there will be no more further GUI, even these buttons will only display text in the game log area-->
+                <a id="inventoryButton">
+                    <button>💼</button>
+                    <p>Inventory</p>
+                </a>    
+                <a id="questsButton">
+                    <button>🗺️</button>
+                    <p>Quests</p>
+                </a>
+            </div>
+            <!--this is the left column, it will contain the map and some other things, towards the bottom of the column I should display important things like health, equiped items, and etc.-->
         </section>
         <section id="right">
-            <p>this is the left column, I think that this side should be reserved for buttons to access inventory, settings (if i make that), quests (important to add another section to the game engine for making quests), and other menus</p>
+            <a id="settingsButton">
+                <button>⚙️</button>
+                <p>Settings</p>
+            </a>
+            <a id="saveButton">
+                <button>📥</button>
+                <p>Save</p>
+            </a>
+            <!--this is the left column, I think that this side should be reserved for buttons to access settings (if i make that), and other menus or functions like saving-->
         </section>
         <section id="center">
             <!--make this scrollable so people can see what happened in the past of the game-->
