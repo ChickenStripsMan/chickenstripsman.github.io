@@ -173,7 +173,7 @@
                 height: 40px;
                 bottom: 0;
             }
-            #txtInput{
+            #textInput{
                 background: rgb(210, 210, 210);
                 font-size: 17px;
                 width: 90%;
@@ -197,6 +197,10 @@
         <!--JS will not be editable by the user-->
         <script>
             //start by making the output text pop up, and sending the user input up as well (make user input the white one).
+            function sent(){
+                const txtInput = document.getElementById('textInput')[0].value;
+                console.log("txtInput")
+            }
         </script>
         <!--HTML goes here-->
         <!--HTML will not be editable by the user-->
@@ -246,8 +250,8 @@
                 <p class="outW" id="4">along with this</p>
             </div>
             <div id="input">
-                <input id="txtInput" type="text">
-                <button id="send">✔</button>
+                <input id="textInput" type="text">
+                <button id="send" onclick="sent()">✔</button>
             </div>
         </section>
     </body>
