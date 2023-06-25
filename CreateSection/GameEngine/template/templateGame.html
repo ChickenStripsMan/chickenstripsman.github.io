@@ -147,22 +147,24 @@
             }
             #output{
                 width: 100%;
-                padding-top: 5px;
+                height: calc(100% - 40px);
+                overflow-y: scroll;
             }
-            .outW{
-                height: 30px;
+            #playerOut{
                 margin: 0;
-                padding: 0;
                 padding-left: 10px;
+                padding-right: 10px;
                 padding-top: 7px;
+                padding-bottom: 7px;
                 background: white;
             }
-            .outG{
-                height: 30px;
+            #gameOut{
                 margin: 0;
                 padding: 0;
                 padding-left: 10px;
+                padding-right: 10px;
                 padding-top: 7px;
+                padding-bottom: 7px;
                 background-color: rgb(155, 155, 155);
             }
             #input{
@@ -193,15 +195,6 @@
                 background: rgb(210, 210, 210);
             }
         </style>
-        <!--JS goes here-->
-        <!--JS will not be editable by the user-->
-        <script>
-            //start by making the output text pop up, and sending the user input up as well (make user input the white one).
-            function sent(){
-                const txtInput = document.getElementById('textInput')[0].value;
-                console.log("txtInput")
-            }
-        </script>
         <!--HTML goes here-->
         <!--HTML will not be editable by the user-->
         <section id="left">
@@ -243,16 +236,68 @@
         <section id="center">
             <!--make this scrollable so people can see what happened in the past of the game-->
             <div id="output">
-                <!--For the ids you need to make something to add 1 to the next when sending new text then figure out if it is odd or even, then based off of that add the appropriate class-->
-                <p class="outG" id="1">this is an example</p>
-                <p class="outW" id="2">along with this</p>
-                <p class="outG" id="3">this is an example</p>
-                <p class="outW" id="4">along with this</p>
+                
             </div>
             <div id="input">
                 <input id="textInput" type="text">
-                <button id="send" onclick="sent()">✔</button>
+                <button id="send" onclick="runGame()">✔</button>
             </div>
         </section>
+        <!--JS goes here-->
+        <!--JS will not be editable by the user-->
+        <script>
+            //start by making the output text pop up, and sending the user input up as well (make user input the white one).
+            const gameLog = document.getElementById('output');
+            var plyrInput = "";
+            var gameOutput = "";
+
+            document.onkeydown = function(e){
+                e = e || window.event;
+                var key = e.which || e.keyCode;
+                if(key === 13){
+                    runGame();
+                }
+            }
+
+            function runGame(){
+                //get input field text
+                var txtInput = document.getElementById('textInput').value;
+                plyrInput = txtInput;
+                console.log('Last Player Input:' + plyrInput)
+
+                //add it to the log
+                var input = document.createElement('p');
+                input.id = 'playerOut';
+                input.innerHTML = txtInput;
+                gameLog.appendChild(input);
+
+                //generate game output
+                if(txtInput == 'settings'){
+                    gameOutput = 'settings list';
+                }
+                else if(txtInput == 'inventory'){
+                    gameOutput = 'inventory list';
+                }
+                else if(txtInput == 'quests'){
+                    gameOutput = 'quests list';
+                }
+                else if(txtInput == 'save'){
+                    //have to makegame saving thingy here
+                    gameOutput = 'game saved';
+                }
+                else{
+                    gameOutput = 'not recognized';
+                }
+
+                //add game output to the log
+                var output = document.createElement('p');
+                output.id = 'gameOut'
+                output.innerHTML = gameOutput;
+                gameLog.appendChild(output);
+                
+                //clear the input field
+                document.getElementById('textInput').value = '';
+            }
+        </script>
     </body>
 </html>
