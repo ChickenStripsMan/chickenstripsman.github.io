@@ -266,6 +266,7 @@
                 }
             }
 
+            //main function that runs the game
             function runGame(){
                 //get input field text
                 plyrInput = document.getElementById('textInput').value;
@@ -274,37 +275,44 @@
                 }
 
                 //add it to the log
-                var input = document.createElement('p');
-                input.id = 'playerOut';
-                input.innerHTML = plyrInput;
-                gameLog.insertBefore(input, gameLog.children[0]);
+                addLog(plyrInput, 'playerOut', 0);
 
                 //generate game output
-                if(plyrInput == 'settings'){
+                interpredator(plyrInput);
+
+                //add game output to the log
+                addLog(gameOutput, 'gameOut', 1);
+                
+                //clear the input field
+                document.getElementById('textInput').value = '';
+            }
+
+            //add something to the log (order is either 0 or 1)
+            function addLog(text, id, order){
+                var element = document.createElement('p');
+                element.id = id;
+                element.innerHTML = text;
+                gameLog.insertBefore(element, gameLog.children[order]);
+            }
+
+            //keep away from children
+            function interpredator(text){
+                if(text == 'settings'){
                     gameOutput = 'settings list';
                 }
-                else if(plyrInput == 'inventory'){
+                else if(text == 'inventory'){
                     gameOutput = 'inventory list';
                 }
-                else if(plyrInput == 'quests'){
+                else if(text == 'quests'){
                     gameOutput = activeQuests.toString().replace(',', '<br>');
                 }
-                else if(plyrInput == 'save'){
+                else if(text == 'save'){
                     //have to makegame saving thingy here
                     gameOutput = 'game saved';
                 }
                 else{
                     gameOutput = 'not recognized';
                 }
-
-                //add game output to the log
-                var output = document.createElement('p');
-                output.id = 'gameOut'
-                output.innerHTML = gameOutput;
-                gameLog.insertBefore(output, gameLog.children[1]);
-                
-                //clear the input field
-                document.getElementById('textInput').value = '';
             }
         </script>
     </body>
