@@ -246,11 +246,18 @@
         <!--JS goes here-->
         <!--JS will not be editable by the user-->
         <script>
-            //start by making the output text pop up, and sending the user input up as well (make user input the white one).
+            //basic variables
             const gameLog = document.getElementById('output');
             var plyrInput = "";
             var gameOutput = "";
 
+            //quest variables
+            var quests = ['quest 1', 'quest 2', 'quest 3'];
+            var activeQuests = [];
+
+            activeQuests.push(quests[0], quests[2])
+
+            //enter text without pushing check button
             document.onkeydown = function(e){
                 e = e || window.event;
                 var key = e.which || e.keyCode;
@@ -261,27 +268,28 @@
 
             function runGame(){
                 //get input field text
-                var txtInput = document.getElementById('textInput').value;
-                plyrInput = txtInput;
-                console.log('Last Player Input:' + plyrInput)
+                plyrInput = document.getElementById('textInput').value;
+                if(plyrInput == ''){
+                    return;
+                }
 
                 //add it to the log
                 var input = document.createElement('p');
                 input.id = 'playerOut';
-                input.innerHTML = txtInput;
-                gameLog.appendChild(input);
+                input.innerHTML = plyrInput;
+                gameLog.insertBefore(input, gameLog.children[0]);
 
                 //generate game output
-                if(txtInput == 'settings'){
+                if(plyrInput == 'settings'){
                     gameOutput = 'settings list';
                 }
-                else if(txtInput == 'inventory'){
+                else if(plyrInput == 'inventory'){
                     gameOutput = 'inventory list';
                 }
-                else if(txtInput == 'quests'){
-                    gameOutput = 'quests list';
+                else if(plyrInput == 'quests'){
+                    gameOutput = activeQuests.toString().replace(',', '<br>');
                 }
-                else if(txtInput == 'save'){
+                else if(plyrInput == 'save'){
                     //have to makegame saving thingy here
                     gameOutput = 'game saved';
                 }
@@ -293,7 +301,7 @@
                 var output = document.createElement('p');
                 output.id = 'gameOut'
                 output.innerHTML = gameOutput;
-                gameLog.appendChild(output);
+                gameLog.insertBefore(output, gameLog.children[1]);
                 
                 //clear the input field
                 document.getElementById('textInput').value = '';

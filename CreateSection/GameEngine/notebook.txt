@@ -1,0 +1,6 @@
+Notes and ideas for making the game engine and possibly how it may work:
+
+> See planning papers
+> CSS is up to the maker of the game to do (excluding basic structure and positioning of things)
+> All I need is a JS script to collect values and then once exported stitch it all together like the on the coding page.
+> Have a save button on all pages needed that sets the variables in the JS file, have one JS file in the folder, but a lot of HTML files for each page (every pages JS file must be the one). MAKE CLEAR THAT YOU NEED TO SAVE BEFORE LEAVING THE PAGE (can use a browser allert to warn the user).
