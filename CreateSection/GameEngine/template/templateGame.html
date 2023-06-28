@@ -167,6 +167,16 @@
                 padding-bottom: 7px;
                 background-color: rgb(155, 155, 155);
             }
+            #inventory{
+                margin: 0;
+                padding: 0;
+                padding-left: 15px;
+                padding-right: 10px;
+                padding-top: 7px;
+                padding-bottom: 7px;
+                font-size: 11px;
+                background-color: rgb(155, 155, 155);
+            }
             #input{
                 display: flex;
                 text-align: center;
@@ -248,8 +258,11 @@
         <script>
             //basic variables
             const gameLog = document.getElementById('output');
-            var plyrInput = "";
-            var gameOutput = "";
+            //index 0 = x, index 1 = y
+            var plyrPosition = [0, 0];
+            var plyrInput = '';
+            var gameOutput = '';
+            var instructions = '<h4>Movement:</h4><ul><li>up</li><li>down</li><li>left</li><li>right</li></ul><h4>Enviorment Interaction:</h4><ul><li>look around</li><li>take</li></ul><h4>Commands:</h4><ul><li>help</li><li>Inventory</li><li>Quests</li><li>Settings</li><li>Save</li></ul>';
 
             //quest variables
             var quests = ['quest 1', 'quest 2', 'quest 3'];
@@ -260,8 +273,12 @@
             //item variables and inventory
             var items = ['apples', 'banana', 'sword', 'phalic object'];
             var inventory = [];
+            var equiped = [];
             //add items for testing, this should be part of game loop
             inventory.push(items[1], items[2], items[3]);
+            
+            //give instructions on game open
+            addLog(instructions, 'inventory', 0)
 
             //enter text without pushing check button
             document.onkeydown = function(e){
@@ -303,7 +320,31 @@
 
             //keep away from children
             function interpredator(text){
-                if(text == 'settings'){
+                //movement
+                if(text == 'up'){
+                    plyrPosition[1] += 1;
+                }
+                else if(text == 'down'){
+                    plyrPosition[1] -= 1;
+                }
+                else if(text == 'left'){
+                    plyrPosition[0] += 1;
+                }
+                else if(text == 'right'){
+                    plyrPosition[0] -= 1;
+                }
+                //enviorment interaction
+                else if(text == 'look around'){
+                    gameOutput = 'you look around';
+                }
+                else if(text == 'take'){
+                    gameOutput = 'you took an item';
+                }
+                //ui in text
+                else if(text == 'help'){
+                    gameOutput = instructions;
+                }
+                else if(text == 'settings'){
                     gameOutput = 'settings list';
                 }
                 else if(text == 'inventory'){
