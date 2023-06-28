@@ -254,8 +254,14 @@
             //quest variables
             var quests = ['quest 1', 'quest 2', 'quest 3'];
             var activeQuests = [];
+            //add quests for testing, this should be part of game loop
+            activeQuests.push(quests[0], quests[2], quests[1]);
 
-            activeQuests.push(quests[0], quests[2])
+            //item variables and inventory
+            var items = ['apples', 'banana', 'sword', 'phalic object'];
+            var inventory = [];
+            //add items for testing, this should be part of game loop
+            inventory.push(items[1], items[2], items[3]);
 
             //enter text without pushing check button
             document.onkeydown = function(e){
@@ -277,7 +283,7 @@
                 //add it to the log
                 addLog(plyrInput, 'playerOut', 0);
 
-                //generate game output
+                //interpret player inputs
                 interpredator(plyrInput);
 
                 //add game output to the log
@@ -301,10 +307,10 @@
                     gameOutput = 'settings list';
                 }
                 else if(text == 'inventory'){
-                    gameOutput = 'inventory list';
+                    gameOutput = inventory.toString().replaceAll(',', '<br>');
                 }
                 else if(text == 'quests'){
-                    gameOutput = activeQuests.toString().replace(',', '<br>');
+                    gameOutput = activeQuests.toString().replaceAll(',', '<br>');
                 }
                 else if(text == 'save'){
                     //have to makegame saving thingy here
