@@ -262,10 +262,10 @@
             var plyrPosition = [0, 0];
             var plyrInput = '';
             var gameOutput = '';
-            var instructions = '<h4>Movement:</h4><ul><li>up</li><li>down</li><li>left</li><li>right</li></ul><h4>Enviorment Interaction:</h4><ul><li>look around</li><li>take</li></ul><h4>Commands:</h4><ul><li>help</li><li>Inventory</li><li>Quests</li><li>Settings</li><li>Save</li></ul>';
+            var instructions = '<h4>Movement:</h4><ul><li>up</li><li>down</li><li>left</li><li>right</li></ul><h4>Enviorment Interaction:</h4><ul><li>inspect</li><li>take</li></ul><h4>Commands:</h4><ul><li>help</li><li>inventory</li><li>quests</li><li>settings</li><li>save</li></ul>';
 
             //quest variables
-            var quests = ['quest 1', 'quest 2', 'quest 3'];
+            var quests = ['quest 1', 'gay', 'quest 3'];
             var activeQuests = [];
             //add quests for testing, this should be part of game loop
             activeQuests.push(quests[0], quests[2], quests[1]);
@@ -276,9 +276,28 @@
             var equiped = [];
             //add items for testing, this should be part of game loop
             inventory.push(items[1], items[2], items[3]);
+
+            //entities (must be after all items and attack etc variables)
+            var entities = [
+                //name, held items(use 'items[index]'), quests(use 'quests[index]'), 
+                ['Bob', items[3], quests[1]],
+                ['Gary', items[2]]
+            ];
+            console.log(entities[0], entities[1]);
+
+            //map must be the last variable because it is where everything previously is placed
+            const map = [
+                //x, y, items, entities, text
+                //need to figure out how to make this information only accessable when the player coordinates are identical
+                [0, 0],
+                [0, 1, 'none', entities[0], 'you sense the aura of a gay man in the room']
+            ];
             
-            //give instructions on game open
+            //give instructions on game open or on help command
             addLog(instructions, 'inventory', 0)
+            function help(){
+                addLog(instructions, 'inventory', 1);
+            }
 
             //enter text without pushing check button
             document.onkeydown = function(e){
@@ -321,6 +340,7 @@
             //keep away from children
             function interpredator(text){
                 //movement
+                //have to figure out way to limit this so that you can only move where the map allows(something like a check that dissables left and right if you can't go that way)
                 if(text == 'up'){
                     plyrPosition[1] += 1;
                 }
@@ -334,7 +354,7 @@
                     plyrPosition[0] -= 1;
                 }
                 //enviorment interaction
-                else if(text == 'look around'){
+                else if(text == 'inspect'){
                     gameOutput = 'you look around';
                 }
                 else if(text == 'take'){
@@ -342,7 +362,7 @@
                 }
                 //ui in text
                 else if(text == 'help'){
-                    gameOutput = instructions;
+                    help();
                 }
                 else if(text == 'settings'){
                     gameOutput = 'settings list';
