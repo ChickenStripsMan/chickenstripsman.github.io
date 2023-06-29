@@ -289,8 +289,8 @@
             const map = [
                 //x, y, items, entities, text
                 //need to figure out how to make this information only accessable when the player coordinates are identical
-                [0, 0],
-                [0, 1, 'none', entities[0], 'you sense the aura of a gay man in the room']
+                [[0, 0]],
+                [[0, 1,] ['none', entities[0], 'you sense the aura of a gay man in the room']]
             ];
             
             //give instructions on game open or on help command
@@ -321,6 +321,9 @@
 
                 //interpret player inputs
                 interpredator(plyrInput);
+
+                //access map info
+                accessMapInfo();
 
                 //add game output to the log
                 addLog(gameOutput, 'gameOut', 1);
@@ -380,6 +383,14 @@
                 else{
                     gameOutput = 'not recognized';
                 }
+            }
+
+            //access the information stored in the map when plyrPosition is on coordinate
+            function accessMapInfo(){
+                var key = plyrPosition.toString();
+                //get doesn't exist fix later
+                var mapInfo = map.get(key);
+                console.log(mapInfo);
             }
         </script>
     </body>
