@@ -1,4 +1,9 @@
-<!--trust me you're going to need it(ctrl + click): https://www.youtube.com/watch?v=fGKIm9mPY_w&ab_channel=RICHIEROZEX-->
+<!--
+trust me you're going to need it(ctrl + click): 
+https://www.youtube.com/watch?v=fGKIm9mPY_w&ab_channel=RICHIEROZEX
+or
+https://www.youtube.com/watch?v=QgIa8nosE4U&ab_channel=Saxsquatch
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -390,11 +395,19 @@
             //access the information stored in the map
             function accessMapInfo(plyrString){
                 plyrString.toString();
+                var lastPosition = [];
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
                     if(mapString == plyrString){
                         currRoomData = map[i][1];
                         gameOutput = currRoomData[0];
+                        lastPosition = plyrPosition;
+                    }
+                    //im trying to make a checker to check when the player is outside the map and when so to move them back in, idk how this is going to work especially since it is eventually going to have to check whether there is a hall leading to the room from where you are approaching it
+                    //an error to keep in mind but that doesnt seem to be fatal so far is that apparently it thinks that [0, 0] doesnt exist
+                    else if(i == map.length){
+                        plyrPosition = lastPosition;
+                        console.log('nope');
                     }
                 }
             }
