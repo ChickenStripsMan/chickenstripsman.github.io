@@ -1,3 +1,4 @@
+<!--trust me you're going to need it(ctrl + click): https://www.youtube.com/watch?v=fGKIm9mPY_w&ab_channel=RICHIEROZEX-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -260,6 +261,7 @@
             const gameLog = document.getElementById('output');
             //index 0 = x, index 1 = y
             var plyrPosition = [0, 0];
+            var currRoomData = [];
             var plyrInput = '';
             var gameOutput = '';
             var instructions = '<h4>Movement:</h4><ul><li>up</li><li>down</li><li>left</li><li>right</li></ul><h4>Enviorment Interaction:</h4><ul><li>inspect</li><li>take</li></ul><h4>Commands:</h4><ul><li>help</li><li>inventory</li><li>quests</li><li>settings</li><li>save</li></ul>';
@@ -277,20 +279,18 @@
             //add items for testing, this should be part of game loop
             inventory.push(items[1], items[2], items[3]);
 
-            //entities (must be after all items and attack etc variables)
+            //entities
             var entities = [
                 //name, held items(use 'items[index]'), quests(use 'quests[index]'), 
                 ['Bob', items[3], quests[1]],
                 ['Gary', items[2]]
             ];
-            console.log(entities[0], entities[1]);
 
-            //map must be the last variable because it is where everything previously is placed
+            //map and room data
             const map = [
-                //x, y, items, entities, text
-                //need to figure out how to make this information only accessable when the player coordinates are identical
-                [[0, 0]],
-                [[0, 1,] ['none', entities[0], 'you sense the aura of a gay man in the room']]
+                //x, y | text, look around text, entities, items
+                [[0, 0], ['testing', 'get']],
+                [[0, 1], ['you crawl into what seems to be a sex dungeon', 'you sense the aura of a gay man in the room', entities[0], 'none']]
             ];
             
             //give instructions on game open or on help command
@@ -316,14 +316,11 @@
                     return;
                 }
 
-                //add it to the log
+                //add player input to the log
                 addLog(plyrInput, 'playerOut', 0);
 
                 //interpret player inputs
                 interpredator(plyrInput);
-
-                //access map info
-                accessMapInfo();
 
                 //add game output to the log
                 addLog(gameOutput, 'gameOut', 1);
@@ -346,15 +343,19 @@
                 //have to figure out way to limit this so that you can only move where the map allows(something like a check that dissables left and right if you can't go that way)
                 if(text == 'up'){
                     plyrPosition[1] += 1;
+                    accessMapInfo(plyrPosition);
                 }
                 else if(text == 'down'){
                     plyrPosition[1] -= 1;
+                    accessMapInfo(plyrPosition);
                 }
                 else if(text == 'left'){
                     plyrPosition[0] += 1;
+                    accessMapInfo(plyrPosition);
                 }
                 else if(text == 'right'){
                     plyrPosition[0] -= 1;
+                    accessMapInfo(plyrPosition);
                 }
                 //enviorment interaction
                 else if(text == 'inspect'){
@@ -365,6 +366,7 @@
                 }
                 //ui in text
                 else if(text == 'help'){
+                    gameOutput = 'Text Commands:';
                     help();
                 }
                 else if(text == 'settings'){
@@ -385,12 +387,16 @@
                 }
             }
 
-            //access the information stored in the map when plyrPosition is on coordinate
-            function accessMapInfo(){
-                var key = plyrPosition.toString();
-                //get doesn't exist fix later
-                var mapInfo = map.get(key);
-                console.log(mapInfo);
+            //access the information stored in the map
+            function accessMapInfo(plyrString){
+                plyrString.toString();
+                for(let i = 0; i < map.length; i++){
+                    var mapString = map[i][0].toString();
+                    if(mapString == plyrString){
+                        currRoomData = map[i][1];
+                        gameOutput = currRoomData[0];
+                    }
+                }
             }
         </script>
     </body>
