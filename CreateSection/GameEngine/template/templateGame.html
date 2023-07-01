@@ -266,6 +266,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
             const gameLog = document.getElementById('output');
             //index 0 = x, index 1 = y
             var plyrPosition = [0, 0];
+            var lastPosition = [];
             var currRoomData = [];
             var plyrInput = '';
             var gameOutput = '';
@@ -294,8 +295,8 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
             //map and room data
             const map = [
                 //x, y | text, look around text, entities, items
-                [[0, 0], ['testing', 'get']],
-                [[0, 1], ['you crawl into what seems to be a sex dungeon', 'you sense the aura of a gay man in the room', entities[0], 'none']]
+                [[0, 0], ['this is a room 1', 'get']],
+                [[0, 1], ['this is a room 2', 'you sense the aura of a gay man in the room', entities[0], 'none']]
             ];
             
             //give instructions on game open or on help command
@@ -394,21 +395,21 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
 
             //access the information stored in the map
             function accessMapInfo(plyrString){
+                console.log(plyrPosition);
                 plyrString.toString();
-                var lastPosition = [];
+                var positionTest = 0;
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
                     if(mapString == plyrString){
                         currRoomData = map[i][1];
                         gameOutput = currRoomData[0];
                         lastPosition = plyrPosition;
+                        positionTest = 1;
                     }
-                    //im trying to make a checker to check when the player is outside the map and when so to move them back in, idk how this is going to work especially since it is eventually going to have to check whether there is a hall leading to the room from where you are approaching it
-                    //an error to keep in mind but that doesnt seem to be fatal so far is that apparently it thinks that [0, 0] doesnt exist
-                    else if(i == map.length){
-                        plyrPosition = lastPosition;
-                        console.log('nope');
-                    }
+                }
+                if(positionTest != 1){
+                    plyrPosition = lastPosition;
+                    gameOutput = 'cant go there';
                 }
             }
         </script>
