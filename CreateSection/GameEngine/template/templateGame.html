@@ -266,7 +266,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
             const gameLog = document.getElementById('output');
             //index 0 = x, index 1 = y
             var plyrPosition = [0, 0];
-            var lastPosition = [];
+            var lastPosition = [0, 0];
             var currRoomData = [];
             var plyrInput = '';
             var gameOutput = '';
@@ -396,11 +396,13 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
             //access the information stored in the map
             function accessMapInfo(plyrString){
                 console.log(plyrPosition);
+                console.log(lastPosition);
                 plyrString.toString();
                 var positionTest = 0;
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
                     if(mapString == plyrString){
+                        console.log('youfart');
                         currRoomData = map[i][1];
                         gameOutput = currRoomData[0];
                         lastPosition = plyrPosition;
@@ -408,9 +410,12 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
                     }
                 }
                 if(positionTest != 1){
+                    console.log('youburp');
                     plyrPosition = lastPosition;
                     gameOutput = 'cant go there';
                 }
+                console.log(plyrPosition);
+                console.log(lastPosition);
             }
         </script>
     </body>
