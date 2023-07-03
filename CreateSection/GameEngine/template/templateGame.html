@@ -402,7 +402,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
                     if(mapString == plyrString){
-                        console.log('youfart');
+                        console.log('in map');
                         currRoomData = map[i][1];
                         gameOutput = currRoomData[0];
                         lastPosition = plyrPosition;
@@ -410,7 +410,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
                     }
                 }
                 if(positionTest != 1){
-                    console.log('youburp');
+                    console.log('not in map');
                     plyrPosition = lastPosition;
                     gameOutput = 'cant go there';
                 }
