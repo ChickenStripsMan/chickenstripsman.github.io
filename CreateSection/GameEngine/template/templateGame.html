@@ -405,13 +405,13 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
                         console.log('in map');
                         currRoomData = map[i][1];
                         gameOutput = currRoomData[0];
-                        lastPosition = plyrPosition;
+                        lastPosition = [...plyrPosition];
                         positionTest = 1;
                     }
                 }
                 if(positionTest != 1){
                     console.log('not in map');
-                    plyrPosition = lastPosition;
+                    plyrPosition = [...lastPosition];
                     gameOutput = 'cant go there';
                 }
                 console.log(plyrPosition);
