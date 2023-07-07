@@ -4,6 +4,7 @@
         <input id="input" type="text">
     </body>
     <script>
+        //map variable
         const map = [
             [[0, 0], ['this is room 1']],
             [[0, 1], ['this is room 2']]
@@ -33,6 +34,7 @@
             interpreter();
         }
 
+        //interprets the input in the box
         function interpreter(){
             if(input == 'up'){
                 position[1] += 1;
@@ -58,10 +60,12 @@
             var positionInfo = position.toString();
             var positionTest = 0;
             console.log('before: ' + positionTest);
+            //checks if your position is in the map by turning arrays into strings and comparing them
             for(i = 0; i < map.length; i++){
                 mapInfo = map[i][0].toString();
                 console.log('Map info: ' + mapInfo);
                 console.log('Position info: ' + positionInfo);
+                //if inside map
                 if(positionInfo == mapInfo){
                     console.log('in map');
                     positionTest = 1;
@@ -70,6 +74,7 @@
                 }
             }
             console.log('after: ' + positionTest);
+            //if not inside map
             if(positionTest != 1){
                 console.log('not in map');
                 position = lastPosition;
