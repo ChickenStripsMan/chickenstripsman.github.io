@@ -86,7 +86,6 @@ canvas.addEventListener('mouseup', e => {
 
     strokes.push(context.getImageData(0, 0, canvas.width, canvas.height));
     index += 1;
-    console.log(strokes);
 });
 
 canvas.addEventListener('mousemove', draw);
