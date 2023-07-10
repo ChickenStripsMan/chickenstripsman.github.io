@@ -3,6 +3,8 @@ trust me you're going to need it(ctrl + click):
 https://www.youtube.com/watch?v=fGKIm9mPY_w&ab_channel=RICHIEROZEX
 or
 https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
+or if you're feeling adventurous
+https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -262,6 +264,8 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
         <!--JS goes here-->
         <!--JS will not be editable by the user-->
         <script>
+            //water mark
+            console.log('Made with {fill this in once you have info and names, add the name of the engine and the url}')
             //basic variables
             const gameLog = document.getElementById('output');
             //index 0 = x, index 1 = y
@@ -295,8 +299,16 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
             //map and room data
             const map = [
                 //x, y | text, look around text, entities, items
+                [[0, -2], ['banan']],
+                [[1, -2], ['hall']],
+                [[2, -2], ['side room bottom']],
+                [[0, -1], ['hall']],
                 [[0, 0], ['this is a room 1', 'get']],
-                [[0, 1], ['this is a room 2', 'you sense the aura of a gay man in the room', entities[0], 'none']]
+                [[1, 0], ['hall']],
+                [[2, 0], ['side room middle']],
+                //make it so that a hall automatically gets the description of 'hall', also don't allow multiple rooms next to eachother, they have to be seperated and then connected by a hall(also only allow halls to be placed in between two rooms, rooms are placed first then connected with halls)
+                [[0, 1], ['hall']],
+                [[0, 2], ['this is a room 2', 'you sense the aura of a gay man in the room', entities[0], 'none']]
             ];
             
             //give instructions on game open or on help command
@@ -395,27 +407,37 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ZEHRZN51RD4yPLgko9ucPl
 
             //access the information stored in the map
             function accessMapInfo(plyrString){
-                console.log(plyrPosition);
-                console.log(lastPosition);
                 plyrString.toString();
                 var positionTest = 0;
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
+                    var roomDisplayData = '';
                     if(mapString == plyrString){
-                        console.log('in map');
-                        currRoomData = map[i][1];
-                        gameOutput = currRoomData[0];
-                        lastPosition = [...plyrPosition];
                         positionTest = 1;
+                        if(map[i][1][0] = 'hall'){
+                            console.log('in hall');
+                            velocityY = plyrString[1] - lastPosition[1];
+                            velocityX = plyrString[0] - lastPosition[0];
+                            plyrPosition[1] += velocityY;
+                            plyrPosition[0] += velocityX;
+                            for(let u = 0; u < map.length; u++){
+                                if(map[u][0].toString() == plyrPosition.toString()){
+                                    roomDisplayData = map[u][1];
+                                }
+                            }
+                        }
+                        else{
+                            roomDisplayData = map[i][1];
+                        }
+                        gameOutput = roomDisplayData[0];
+                        lastPosition = [...plyrPosition];
+                        return;
                     }
                 }
                 if(positionTest != 1){
-                    console.log('not in map');
                     plyrPosition = [...lastPosition];
                     gameOutput = 'cant go there';
                 }
-                console.log(plyrPosition);
-                console.log(lastPosition);
             }
         </script>
     </body>
