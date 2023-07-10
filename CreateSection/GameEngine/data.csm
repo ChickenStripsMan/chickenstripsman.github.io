@@ -1,0 +1,1 @@
+store the text of the template once everything works with the engine in here, then have the engine reference this document for the game data, possibly also store all of the users variables here after the code like "Entities: [[bob, quest[0], item[1]], ['banana man', quest[1]]]", and "Items: [['banan', ability[1]]]"
