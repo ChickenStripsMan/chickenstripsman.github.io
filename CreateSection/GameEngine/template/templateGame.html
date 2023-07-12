@@ -358,7 +358,6 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             //keep away from children
             function interpredator(text){
                 //movement
-                //have to figure out way to limit this so that you can only move where the map allows(something like a check that dissables left and right if you can't go that way)
                 if(text == 'up'){
                     plyrPosition[1] += 1;
                     accessMapInfo(plyrPosition);
@@ -411,25 +410,23 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 var positionTest = 0;
                 for(let i = 0; i < map.length; i++){
                     var mapString = map[i][0].toString();
-                    var roomDisplayData = '';
                     if(mapString == plyrString){
                         positionTest = 1;
                         if(map[i][1][0] = 'hall'){
-                            console.log('in hall');
                             velocityY = plyrString[1] - lastPosition[1];
                             velocityX = plyrString[0] - lastPosition[0];
                             plyrPosition[1] += velocityY;
                             plyrPosition[0] += velocityX;
                             for(let u = 0; u < map.length; u++){
                                 if(map[u][0].toString() == plyrPosition.toString()){
-                                    roomDisplayData = map[u][1];
+                                    currRoomData = map[u][1];
                                 }
                             }
                         }
                         else{
-                            roomDisplayData = map[i][1];
+                            currRoomData = map[i][1];
                         }
-                        gameOutput = roomDisplayData[0];
+                        gameOutput = currRoomData[0];
                         lastPosition = [...plyrPosition];
                         return;
                     }
