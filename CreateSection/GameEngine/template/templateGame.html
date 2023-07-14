@@ -201,6 +201,14 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 border: 0;
                 padding: 0;
             }
+            #logInput{
+                background: rgb(210, 210, 210);
+                font-size: 15px;
+                width: 100%;
+                margin: 0;
+                border: 0;
+                padding: 0;
+            }
             #send{
                 background: rgb(155, 155, 155);
                 width: 10%;
@@ -257,7 +265,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 
             </div>
             <div id="input">
-                <input id="textInput" type="text">
+                <input id="textInput" type="text" placeholder=" enter commands here">
                 <button id="send" onclick="runGame()">✔</button>
             </div>
         </section>
@@ -271,6 +279,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             //index 0 = x, index 1 = y
             var plyrPosition = [0, 0];
             var lastPosition = [0, 0];
+            var logInputTxt = '';
             var plyrInput = '';
             var gameOutput = '';
             var instructions = '<h4>Movement:</h4><ul><li>up</li><li>down</li><li>left</li><li>right</li></ul><h4>Enviorment Interaction:</h4><ul><li>inspect</li><li>take</li></ul><h4>Commands:</h4><ul><li>help</li><li>inventory</li><li>quests</li><li>settings</li><li>save</li><li>cls</li></ul>';
@@ -312,9 +321,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             var currRoomData = map[0][1];
             
             //give instructions on game open or on help command
-            addLog(instructions, 'inventory', 0)
             function help(){
                 addLog(instructions, 'inventory', 1);
+                addInput('logInput', 1);
             }
 
             //enter text without pushing check button
@@ -326,24 +335,38 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 }
             }
 
+            //tell the player the instructions
+            addLog(instructions, 'inventory', 1);
+
             //main function that runs the game
             function runGame(){
+                //reset player and game output and input
+                plyrInput = '';
+                gameOutput = '';
+
                 //get input field text
                 plyrInput = document.getElementById('textInput').value;
-                if(plyrInput == ''){
-                    return;
+
+                //interpret player inputs in the log input if it exists
+                logInterpredator();
+
+                //check if there is input
+                if(plyrInput != ''){
+                    //interpret player inputs
+                    interpredator(plyrInput);
+                    //add player input to the log
+                    addLog(plyrInput, 'playerOut', 0);
                 }
-
-                //add player input to the log
-                addLog(plyrInput, 'playerOut', 0);
-
-                //interpret player inputs
-                interpredator(plyrInput);
-
-                //add game output to the log
-                addLog(gameOutput, 'gameOut', 1);
                 
-                //clear the input field
+                //add game output to the log
+                if(gameOutput != ''){
+                    addLog(gameOutput, 'gameOut', 1);
+                }
+                
+                //clear the input fields
+                if(document.getElementById('logInput') != null){
+                    document.getElementById('logInput').value = '';
+                }
                 document.getElementById('textInput').value = '';
             }
 
@@ -355,8 +378,26 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 gameLog.insertBefore(element, gameLog.children[order]);
             }
             
-            function addInput(){
+            //adds an input box in the log so the menus can be interacted with
+            function addInput(id, order){
+                var element = document.createElement('input');
+                element.type = 'text';
+                element.placeholder = ' interect with the menu above here'
+                element.id = id;
+                gameLog.insertBefore(element, gameLog.children[order]);
+            }
 
+            //interprets the log input text
+            function logInterpredator(){
+                if(document.getElementById('logInput') == null){
+                    return;
+                }
+                else{
+                    logInputTxt = document.getElementById('logInput').value;
+                    if(logInputTxt == 'hello'){
+                        gameOutput = 'text';
+                    }
+                }
             }
 
             //keep away from children
@@ -387,7 +428,6 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 }
                 //ui in text
                 else if(text == 'help'){
-                    gameOutput = 'Text Commands:';
                     help();
                 }
                 else if(text == 'settings'){
@@ -492,6 +532,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 gameLog.innerHTML
                 if(inventory.length != 0){
                     gameOutput = inventory.toString().replaceAll(',', '<br>');
+                    addInput('logInput', 0);
                 }
                 else{
                     gameOutput = 'Inventory is empty';
