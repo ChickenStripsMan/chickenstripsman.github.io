@@ -525,6 +525,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 duplicateChecker(inventory);
                 duplicateChecker(currRoomData[3]);
                 for(let i = 0; i < currRoomData[3].length; i++){
+                    console.log('yes');
+                    console.log(typeof currRoomData[3][i]);
+                    console.log(currRoomData[3][i]);
                     currRoomData[3][i].slice(1, currRoomData[3][i].length);
                 }
                 gameOutput = 'You took: <br>' + currRoomData[3].toString().replaceAll(',', '<br>');
