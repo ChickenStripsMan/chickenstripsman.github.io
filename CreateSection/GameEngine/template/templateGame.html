@@ -320,6 +320,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             //name | use or equip | health effect | attack effect | where it is equiped
             const items = [['apples', 'use', 10, 0], ['banana', 'use', 5, 0], ['sword', 'equip', 0, 15], ['gold', 'none', 0, 0]];
             var inventory = [];
+            var amountAlrIn = inventory.length;
             //0 = head | 1 = torso | 2 = legs | 3 = left hand | 4 = right hand | 5 = secondary
             var equiped = [];
             var playerItems = [];
@@ -343,7 +344,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 [[2, 0], ['side room middle']],
                 //make it so that a hall automatically gets the description of 'hall', also don't allow multiple rooms next to eachother, they have to be seperated and then connected by a hall(also only allow halls to be placed in between two rooms, rooms are placed first then connected with halls)
                 [[0, 1], ['hall']],
-                [[0, 2], ['this is a room 2', 'you sense the aura of a gay man in the room', entities[0], items[1]]]
+                [[0, 2], ['this is a room 2', 'you sense the aura of a gay man in the room', [entities[0]], [items[1], items[2], items[0], items[2]]]]
             ];
             var currRoomData = map[0][1];
             
@@ -490,7 +491,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                     var mapString = map[i][0].toString();
                     if(mapString == plyrString){
                         positionTest = 1;
-                        if(map[i][1][0] = 'hall'){
+                        if(map[i][1][0] == 'hall'){
                             velocityY = plyrString[1] - lastPosition[1];
                             velocityX = plyrString[0] - lastPosition[0];
                             plyrPosition[1] += velocityY;
@@ -517,35 +518,37 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
 
             //access items in the map
             function accessItems(){
-                var amountAlrIn = inventory.length;
-                var addTo = currRoomData[3];
-                playerItems = playerItems.concat(addTo);
-                //im fairly certain that the line below is the one that needs to be changed to fix the current bug
-                inventory = inventory.concat(addTo);
+                if(currRoomData[3] == 'Nothing'){
+                    gameOutput = 'You took:<br>Nothing';
+                    return;
+                }
+                playerItems = playerItems.concat(currRoomData[3]);
+                inventory = [...playerItems];
                 duplicateChecker(inventory);
                 duplicateChecker(currRoomData[3]);
                 for(let i = 0; i < currRoomData[3].length; i++){
-                    console.log('yes');
-                    console.log(typeof currRoomData[3][i]);
-                    console.log(currRoomData[3][i]);
-                    currRoomData[3][i].slice(1, currRoomData[3][i].length);
+                    currRoomData[3][i].splice(1);
+                }
+                for(let r = 0; r < inventory.length; r++){
+                    inventory[r].splice(1);
                 }
                 gameOutput = 'You took: <br>' + currRoomData[3].toString().replaceAll(',', '<br>');
-                currRoomData.pop(3);
+                currRoomData.splice(3, 1);
                 currRoomData.push('Nothing');
+                addIndex();
+            }
+            
+            function addIndex(){
                 //add index to items
                 for(let i = amountAlrIn; i < inventory.length; i++){
                     inventory[i] = [i + ': ' + inventory[i]];
                 }
             }
-            
+
             //checks for duplicate items in an array
             function duplicateChecker(array){
                 for(let i = 0; i < array.length; i++){
                     var duplicateCheck = array[i];
-                    if(duplicateCheck == 'Nothing'){
-                        array.pop(i);
-                    }
                     var itemCount = 0;
                     for(let c = 0; c < array.length; c++){
                         if(duplicateCheck == array[c]){
@@ -555,18 +558,19 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                     if(itemCount > 1){
                         for(let d = 0; d < array.length; d++){
                             if(array[d] == duplicateCheck){
-                                array.pop(d);
+                                array.splice(d, 1);
                                 d--;
                             }
                         }
-                        array.push(itemCount + ' ' + duplicateCheck);
+                        var hold = itemCount + ' ' + duplicateCheck;
+                        var pushing = hold.split(',');
+                        array.push(pushing);
                     }
                 }
             }
 
             //displays inventory and initiates input box for menu
             function accessInventory(){
-                gameLog.innerHTML
                 if(inventory.length != 0){
                     gameOutput = inventory.toString().replaceAll(',', '<br>');
                     addInput('logInput', 0);
