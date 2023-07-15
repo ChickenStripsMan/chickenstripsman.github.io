@@ -143,6 +143,24 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             #saveButton:hover{
                 background: rgb(210, 210, 210);
             }
+            #dictionaryButton{
+                background: rgb(155, 155, 155);
+                display: flex;
+                transition-duration: 0.3s;
+            }
+            #dictionaryButton p{
+                margin: 1px;
+                padding-left: 3px;
+            }
+            #dictionaryButton button{
+                background: rgb(210, 210, 210);
+                text-align: center;
+                aspect-ratio: 1.25/1;
+                border: 0;
+            }
+            #dictionaryButton:hover{
+                background: rgb(210, 210, 210);
+            }
             /*center column*/
             #center{
                 font-size: 15px;
@@ -249,13 +267,20 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             <!--this is the left column, it will contain the map and some other things, towards the bottom of the column I should display important things like health, equiped items, and etc.-->
         </section>
         <section id="right">
+            <!--display settings in the log-->
             <a id="settingsButton">
                 <button>⚙️</button>
                 <p>Settings</p>
             </a>
+            <!--save game and display "game saved" in log-->
             <a id="saveButton">
                 <button>📥</button>
                 <p>Save</p>
+            </a>
+            <!--display a dictionary of items and entities including stats in log-->
+            <a id="dictionaryButton">
+                <button>📜</button>
+                <p>Dictionary</p>
             </a>
             <!--this is the left column, I think that this side should be reserved for buttons to access settings (if i make that), and other menus or functions like saving-->
         </section>
@@ -291,7 +316,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             activeQuests.push(quests[0], quests[2], quests[1]);
 
             //item variables and inventory
-            const items = ['apples', 'banana', 'sword', 'gold bar'];
+            //have to figure out how to make it so that it only adds the name to the display
+            //name | use or equip | health effect | attack effect | where it is equiped
+            const items = [['apples', 'use', 10, 0], ['banana'], ['sword'], ['gold bar']];
             var inventory = [];
             //0 = head | 1 = torso | 2 = legs | 3 = left hand | 4 = right hand | 5 = secondary
             var equiped = [];
@@ -443,6 +470,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                     //have to makegame saving thingy here
                     gameOutput = 'game saved';
                 }
+                else if(text == 'dictionary'){
+                    gameOutput = 'dictionary of items and entities';
+                }
                 else if(text == 'cls'){
                     gameLog.innerHTML = '';
                     gameOutput = 'screen cleared'
@@ -489,12 +519,13 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             function accessItems(){
                 var amountAlrIn = inventory.length;
                 var addTo = currRoomData[3];
+                //im fairly certain that the line below is the one that needs to be changed to fix the current bug
                 inventory = inventory.concat(addTo);
                 playerItems = playerItems.concat(addTo);
-                duplicateChecker(currRoomData[3])
+                duplicateChecker(currRoomData[3]);
                 gameOutput = 'You took: <br>' + currRoomData[3].toString().replaceAll(',', '<br>');
                 currRoomData.pop(3);
-                currRoomData.push('Nothing')
+                currRoomData.push('Nothing');
                 duplicateChecker(inventory);
                 //add index to items
                 for(let i = amountAlrIn; i < inventory.length; i++){
@@ -505,19 +536,19 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             //checks for duplicate items in an array
             function duplicateChecker(array){
                 for(let i = 0; i < array.length; i++){
-                    var duplicateCheck = array[i];
+                    var duplicateCheck = array[i][0];
                     if(duplicateCheck == 'Nothing'){
                         array.pop(i);
                     }
                     var itemCount = 0;
                     for(let c = 0; c < array.length; c++){
-                        if(duplicateCheck == array[c]){
+                        if(duplicateCheck == array[c][0]){
                             itemCount += 1;
                         }
                     }
                     if(itemCount > 1){
                         for(let d = 0; d < array.length; d++){
-                            if(array[d] == duplicateCheck){
+                            if(array[d][0] == duplicateCheck){
                                 array.pop(d);
                                 d--;
                             }
