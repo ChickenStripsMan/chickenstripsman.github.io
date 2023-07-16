@@ -82,6 +82,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             #inventoryButton:hover button{
                 background: rgb(210, 210, 210);
             }
+            #inventoryButton:hover{
+                cursor: pointer;
+            }
             #questsButton{
                 display: flex;
             }
@@ -98,6 +101,9 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             }
             #questsButton:hover button{
                 background: rgb(210, 210, 210);
+            }
+            #questsButton:hover{
+                cursor: pointer;
             }
             /*right column*/
             #right{
@@ -124,6 +130,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             }
             #settingsButton:hover{
                 background: rgb(210, 210, 210);
+                cursor: pointer;
             }
             #saveButton{
                 background: rgb(155, 155, 155);
@@ -142,6 +149,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             }
             #saveButton:hover{
                 background: rgb(210, 210, 210);
+                cursor: pointer;
             }
             #dictionaryButton{
                 background: rgb(155, 155, 155);
@@ -160,6 +168,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             }
             #dictionaryButton:hover{
                 background: rgb(210, 210, 210);
+                cursor: pointer;
             }
             /*center column*/
             #center{
@@ -237,6 +246,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             }
             #send:hover{
                 background: rgb(210, 210, 210);
+                cursor: pointer;
             }
         </style>
         <!--HTML goes here-->
@@ -320,10 +330,11 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             //name | use or equip | health effect | attack effect | where it is equiped
             const items = [['apples', 'use', 10, 0], ['banana', 'use', 5, 0], ['sword', 'equip', 0, 15], ['gold', 'none', 0, 0]];
             var inventory = [];
+            var invList = [];
+            var playerItems = [];
             var amountAlrIn = inventory.length;
             //0 = head | 1 = torso | 2 = legs | 3 = left hand | 4 = right hand | 5 = secondary
             var equiped = [];
-            var playerItems = [];
 
             //entities
             const entities = [
@@ -350,11 +361,11 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
             
             //give instructions on game open or on help command
             function help(){
-                addLog(instructions, 'inventory', 1);
+                addLog(instructions, 'inventory', 0);
                 addInput('logInput', 1);
             }
 
-            //enter text without pushing check button
+            //run game without pushing check button
             document.onkeydown = function(e){
                 e = e || window.event;
                 var key = e.which || e.keyCode;
@@ -374,18 +385,24 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
 
                 //get input field text
                 plyrInput = document.getElementById('textInput').value;
-
-                //interpret player inputs in the log input if it exists
-                logInterpredator();
+                plyrInput = plyrInput.trim();
 
                 //check if there is input
                 if(plyrInput != ''){
+                    //remove log input after it has been used to prevent possible issues
+                    if(document.getElementById('logInput') != null){
+                        gameLog.removeChild(document.getElementById('logInput'));
+                    }
                     //interpret player inputs
                     interpredator(plyrInput);
                     //add player input to the log
                     addLog(plyrInput, 'playerOut', 0);
                 }
-                
+                else{
+                    //interpret player inputs in the log input if it exists
+                    logInterpredator();
+                }
+
                 //add game output to the log
                 if(gameOutput != ''){
                     addLog(gameOutput, 'gameOut', 1);
@@ -405,7 +422,7 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 element.innerHTML = text;
                 gameLog.insertBefore(element, gameLog.children[order]);
             }
-            
+
             //adds an input box in the log so the menus can be interacted with
             function addInput(id, order){
                 var element = document.createElement('input');
@@ -421,12 +438,43 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                     return;
                 }
                 else{
+                    //get input from log input field
                     logInputTxt = document.getElementById('logInput').value;
-                    if(logInputTxt == 'hello'){
-                        gameOutput = 'text';
+                    logInputTxt = logInputTxt.trim();
+                    //if there is nothing in the box then do nothing
+                    if(logInputTxt == ''){
+                        return;
+                    }
+                    //if there is then do this
+                    else{
+                        //split the input into an array to make comparisons easy
+                        logInputArray = logInputTxt.split(' ');
+                        //make a copy the inventory that can be compared with playerItems
+                        invCopyManager();
+                        //check inputs
+                        if(logInputArray[0] == 'use'){
+                            useItem();
+                        }
+                        //else if(){
+                            //this is only here to show what the other ones should look like
+                        //}
+                        else{
+                            gameOutput = 'not recognized';
+                        }
                     }
                 }
             }
+
+            //function called when you use an item
+            function useItem(){
+                for(let i = 0; i < inventory.length; i++){
+                    if(logInputArray[1] == i){
+                        console.log(inventory[i]);
+                        gameOutput = 'you used: ' + invList[i];
+                    }
+                }
+            }
+
 
             //keep away from children
             function interpredator(text){
@@ -577,6 +625,27 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7akBOVrohTvifuk1Ptg7oi-
                 }
                 else{
                     gameOutput = 'Inventory is empty';
+                }
+            }
+            
+            //creates a copy of inventory in the correct order without labels or number of items
+            function invCopyManager(){
+                invList = [...inventory];
+                for(let i = 0; i < invList.length; i++){
+                    invList[i] = invList[i][0].slice(2);
+                    if(!isNaN(parseInt(invList[i][1]))){
+                        invList[i] = invList[i].trim();
+                        for(let e = 0; e < invList[i].length; e++){
+                            if(!isNaN(parseInt(invList[i][e]))){
+                                invList[i] = invList[i].slice(1);
+                                invList[i] = invList[i].trim();
+                                e--;
+                            }
+                        }
+                    }
+                    else{
+                        invList[i] = invList[i].trim();
+                    }
                 }
             }
         </script>
