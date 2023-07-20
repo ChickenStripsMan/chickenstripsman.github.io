@@ -467,12 +467,25 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ac2HEOAtkfPtTWy3Z5uGtD
                 }
             }
 
+            //issue area, work on this
             //function called when you use an item
             function useItem(){
                 for(let i = 0; i < inventory.length; i++){
                     if(logInputArray[1] == i){
                         console.log(inventory[i]);
                         gameOutput = 'you used: ' + invList[i];
+                        for(let f = 0; f < playerItems.length; f++){
+                            if(playerItems[f][0] == invList[i]){
+                                console.log(f);
+                                console.log(invList[i]);
+                                console.log(playerItems[f][0]);
+                                console.log('found and removing match');
+                                console.log(playerItems);
+                                playerItems = playerItems.splice(f, 1);
+                                console.log(playerItems);
+                                return;
+                            }
+                        }
                     }
                 }
             }
