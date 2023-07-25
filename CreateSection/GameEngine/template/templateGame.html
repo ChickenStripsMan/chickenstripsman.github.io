@@ -381,8 +381,6 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ac2HEOAtkfPtTWy3Z5uGtD
             //tell the player the instructions
             addLog(instructions, 'inventory', 1);
 
-            console.log(currRoomData[3]);
-
             //main function that runs the game
             function runGame(){
                 //reset player and game output and input
@@ -566,8 +564,8 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ac2HEOAtkfPtTWy3Z5uGtD
                     gameOutput = 'You took:<br>Nothing';
                     return;
                 }
+                //for some reason before the line below is executed some of the values in currRoomData (specifically for items there are only 1 of) are having their properties stripped
                 playerItems = [...playerItems, ...currRoomData[3]];
-                console.log(playerItems);
                 inventory = [...playerItems];
                 duplicateChecker(inventory);
                 duplicateChecker(currRoomData[3]);
@@ -601,16 +599,16 @@ https://www.youtube.com/playlist?list=PLBkutC8eoG7ac2HEOAtkfPtTWy3Z5uGtD
                         }
                     }
                     if(itemCount > 1){
-                        //issue with playerItems could possibly be this
                         for(let d = 0; d < array.length; d++){
                             if(array[d] == duplicateCheck){
                                 array.splice(d, 1);
                                 d--;
                             }
                         }
-                        var hold = itemCount + ' ' + duplicateCheck;
+                        var hold = itemCount + ' ' + duplicateCheck[0];
                         var pushing = hold.split(',');
                         array.push(pushing);
+                        i = 0;
                     }
                 }
             }
