@@ -7,6 +7,10 @@ function Checked(){
         alert("Work In Progress Games")
         window.location.href = "../InProgress/inProgressHome.html"
     }
+    else if(text == "322674227"){
+        alert("Going to another page")
+        window.location.href = "./GoogleDrive.html"
+    }
     else{
         alert("Password Not Valid")
         window.location.href = "../index.html"
