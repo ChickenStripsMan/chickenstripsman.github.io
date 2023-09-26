@@ -11,6 +11,10 @@ function Checked(){
         alert("Going to another page")
         window.location.href = "./GoogleDrive.html"
     }
+    else if(text == "742273226"){
+        alert("Going to another page")
+        window.location.href = "./Amazon/index.html"
+    }
     else{
         alert("Password Not Valid")
         window.location.href = "../index.html"
